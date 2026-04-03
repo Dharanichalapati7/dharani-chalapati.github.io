@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dharani Chalapati — Finance & Analytics</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0d1b2e;
+    --navy-mid: #152540;
+    --navy-light: #1e3357;
+    --gold: #c9a84c;
+    --gold-light: #e8cc7a;
+    --cream: #f5f0e8;
+    --cream-dim: #a09b93;
+    --white: #ffffff;
+    --accent: #2e6db4;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--navy); color: var(--cream); font-family: 'DM Sans', sans-serif; font-weight: 300; overflow-x: hidden; }
+  body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 0; opacity: 0.4; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.4rem 4rem; background: rgba(13,27,46,0.88); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(201,168,76,0.15); }
+  .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 600; color: var(--gold); letter-spacing: 0.05em; text-decoration: none; }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { font-family: 'DM Mono', monospace; font-size: 0.72rem; font-weight: 400; color: var(--cream-dim); text-decoration: none; letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.3s; }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* HERO */
+  #hero { min-height: 100vh; display: flex; align-items: center; padding: 0 4rem; position: relative; overflow: hidden; }
+  .hero-circle { position: absolute; right: 8%; top: 50%; transform: translateY(-50%); width: 420px; height: 420px; border-radius: 50%; border: 1px solid rgba(201,168,76,0.1); animation: pulse 6s ease-in-out infinite; }
+  .hero-circle::before { content: ''; position: absolute; inset: 40px; border-radius: 50%; border: 1px solid rgba(201,168,76,0.07); }
+  .hero-circle::after { content: ''; position: absolute; inset: 80px; border-radius: 50%; border: 1px solid rgba(201,168,76,0.05); }
+  @keyframes pulse { 0%,100% { transform: translateY(-50%) scale(1); opacity: 0.6; } 50% { transform: translateY(-50%) scale(1.03); opacity: 1; } }
+  .hero-content { max-width: 680px; position: relative; z-index: 1; }
+  .hero-eyebrow { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 0.8s 0.2s forwards; }
+  .hero-name { font-family: 'Cormorant Garamond', serif; font-size: clamp(3.5rem,7vw,6rem); font-weight: 300; line-height: 1.0; color: var(--white); margin-bottom: 0.3rem; opacity: 0; animation: fadeUp 0.8s 0.4s forwards; }
+  .hero-name span { color: var(--gold); font-style: italic; }
+  .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.2rem,2.5vw,1.8rem); font-weight: 300; color: var(--cream-dim); margin-bottom: 2rem; opacity: 0; animation: fadeUp 0.8s 0.6s forwards; }
+  .hero-desc { font-size: 1rem; line-height: 1.8; color: var(--cream-dim); max-width: 520px; margin-bottom: 2.5rem; opacity: 0; animation: fadeUp 0.8s 0.8s forwards; }
+  .hero-stats { display: flex; gap: 3rem; margin-bottom: 2.5rem; opacity: 0; animation: fadeUp 0.8s 1s forwards; }
+  .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 600; color: var(--gold); line-height: 1; }
+  .stat-label { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--cream-dim); margin-top: 0.3rem; }
+  .hero-cta { display: flex; gap: 1rem; opacity: 0; animation: fadeUp 0.8s 1.2s forwards; }
+  .btn-primary { padding: 0.8rem 2rem; background: var(--gold); color: var(--navy); font-family: 'DM Mono', monospace; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; transition: all 0.3s; }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .btn-secondary { padding: 0.8rem 2rem; border: 1px solid rgba(201,168,76,0.4); color: var(--gold); font-family: 'DM Mono', monospace; font-size: 0.72rem; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; transition: all 0.3s; }
+  .btn-secondary:hover { border-color: var(--gold); background: rgba(201,168,76,0.08); transform: translateY(-2px); }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* SECTIONS */
+  section { padding: 7rem 4rem; position: relative; z-index: 1; }
+  .section-header { display: flex; align-items: center; gap: 1.5rem; margin-bottom: 4rem; }
+  .section-num { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--gold); letter-spacing: 0.15em; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem,4vw,3rem); font-weight: 300; color: var(--white); }
+  .section-line { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(201,168,76,0.3), transparent); }
+
+  /* ABOUT */
+  #about { background: var(--navy-mid); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .about-text p { font-size: 1.05rem; line-height: 1.9; color: var(--cream-dim); margin-bottom: 1.5rem; }
+  .about-text p strong { color: var(--cream); font-weight: 500; }
+  .about-details { display: flex; flex-direction: column; gap: 1.2rem; }
+  .detail-item { padding: 1.4rem; border: 1px solid rgba(201,168,76,0.12); border-left: 3px solid var(--gold); background: rgba(201,168,76,0.03); }
+  .detail-label { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
+  .detail-value { font-size: 0.92rem; color: var(--cream); line-height: 1.6; }
+
+  /* SKILLS */
+  #skills { background: var(--navy); }
+  .skills-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.5rem; }
+  .skill-card { padding: 2rem; border: 1px solid rgba(201,168,76,0.1); background: rgba(30,51,87,0.3); transition: all 0.3s; position: relative; overflow: hidden; }
+  .skill-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 0; background: var(--gold); transition: height 0.4s; }
+  .skill-card:hover::before { height: 100%; }
+  .skill-card:hover { border-color: rgba(201,168,76,0.3); background: rgba(30,51,87,0.5); transform: translateY(-3px); }
+  .skill-card-title { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .skill-tag { font-family: 'DM Mono', monospace; font-size: 0.65rem; padding: 0.3rem 0.7rem; background: rgba(201,168,76,0.08); border: 1px solid rgba(201,168,76,0.2); color: var(--cream-dim); letter-spacing: 0.05em; }
+
+  /* EXPERIENCE */
+  #experience { background: var(--navy-mid); }
+  .timeline { position: relative; }
+  .timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: linear-gradient(180deg, var(--gold), rgba(201,168,76,0.1)); }
+  .timeline-item { padding-left: 3rem; padding-bottom: 3.5rem; position: relative; opacity: 0; transform: translateX(-20px); transition: all 0.6s; }
+  .timeline-item.visible { opacity: 1; transform: translateX(0); }
+  .timeline-dot { position: absolute; left: -5px; top: 6px; width: 11px; height: 11px; background: var(--gold); border-radius: 50%; border: 2px solid var(--navy-mid); }
+  .timeline-period { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; color: var(--gold); text-transform: uppercase; margin-bottom: 0.5rem; }
+  .timeline-role { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 400; color: var(--white); margin-bottom: 0.3rem; }
+  .timeline-company { font-size: 0.9rem; color: var(--cream-dim); margin-bottom: 1.2rem; font-style: italic; }
+  .timeline-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .timeline-bullets li { font-size: 0.92rem; line-height: 1.7; color: var(--cream-dim); padding-left: 1.2rem; position: relative; }
+  .timeline-bullets li::before { content: '—'; position: absolute; left: 0; color: var(--gold); font-size: 0.8rem; }
+
+  /* PROJECTS */
+  #projects { background: var(--navy); }
+  .projects-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+  .project-card { border: 1px solid rgba(201,168,76,0.12); background: rgba(21,37,64,0.6); padding: 2rem; position: relative; overflow: hidden; opacity: 0; transform: translateY(20px); transition: opacity 0.6s, transform 0.6s, border-color 0.3s, background 0.3s; }
+  .project-card.visible { opacity: 1; transform: translateY(0); }
+  .project-card:hover { border-color: rgba(201,168,76,0.35); background: rgba(30,51,87,0.7); transform: translateY(-5px); }
+  .project-num { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--gold); letter-spacing: 0.15em; margin-bottom: 1rem; opacity: 0.7; }
+  .project-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 400; color: var(--white); margin-bottom: 0.8rem; line-height: 1.3; }
+  .project-org { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem; opacity: 0.8; }
+  .project-desc { font-size: 0.88rem; line-height: 1.75; color: var(--cream-dim); margin-bottom: 1.5rem; }
+  .project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .project-tag { font-family: 'DM Mono', monospace; font-size: 0.6rem; padding: 0.25rem 0.6rem; border: 1px solid rgba(201,168,76,0.25); color: var(--gold); letter-spacing: 0.08em; }
+
+  /* EDUCATION */
+  #education { background: var(--navy-mid); }
+  .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .edu-card { padding: 2.5rem; border: 1px solid rgba(201,168,76,0.15); background: rgba(13,27,46,0.5); position: relative; }
+  .edu-card::after { content: ''; position: absolute; bottom: 0; left: 2.5rem; right: 2.5rem; height: 2px; background: linear-gradient(90deg, var(--gold), transparent); }
+  .edu-degree { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 400; color: var(--white); margin-bottom: 0.5rem; line-height: 1.3; }
+  .edu-school { font-size: 0.9rem; color: var(--cream-dim); font-style: italic; margin-bottom: 0.8rem; }
+  .edu-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+  .edu-gpa, .edu-period { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; color: var(--gold); }
+  .edu-courses { margin-top: 1rem; font-size: 0.83rem; color: var(--cream-dim); line-height: 1.7; }
+
+  /* LEADERSHIP */
+  #leadership { background: var(--navy); }
+  .leadership-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .leadership-card { padding: 2rem; border: 1px solid rgba(201,168,76,0.12); background: rgba(30,51,87,0.3); transition: all 0.3s; }
+  .leadership-card:hover { border-color: rgba(201,168,76,0.3); transform: translateY(-3px); }
+  .leadership-role { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 400; color: var(--white); margin-bottom: 0.4rem; }
+  .leadership-org { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem; }
+  .leadership-desc { font-size: 0.88rem; line-height: 1.75; color: var(--cream-dim); }
+
+  /* CONTACT */
+  #contact { background: var(--navy-mid); text-align: center; }
+  .contact-eyebrow { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; }
+  .contact-heading { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.5rem,5vw,4.5rem); font-weight: 300; color: var(--white); margin-bottom: 1rem; line-height: 1.1; }
+  .contact-heading em { color: var(--gold); font-style: italic; }
+  .contact-sub { font-size: 1rem; color: var(--cream-dim); margin-bottom: 3rem; max-width: 500px; margin-left: auto; margin-right: auto; line-height: 1.8; }
+  .contact-links { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; }
+  .contact-link { display: flex; align-items: center; gap: 0.6rem; font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; color: var(--cream-dim); text-decoration: none; padding: 0.8rem 1.5rem; border: 1px solid rgba(201,168,76,0.2); transition: all 0.3s; }
+  .contact-link:hover { color: var(--gold); border-color: var(--gold); background: rgba(201,168,76,0.06); }
+
+  /* FOOTER */
+  footer { padding: 2rem 4rem; border-top: 1px solid rgba(201,168,76,0.1); display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 1; }
+  .footer-text { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--cream-dim); letter-spacing: 0.1em; opacity: 0.5; }
+
+  /* ANIMATIONS */
+  .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.7s, transform 0.7s; }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--navy); }
+  ::-webkit-scrollbar-thumb { background: var(--gold); }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#hero" class="nav-logo">DC</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-circle"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Finance · Asset Management · Analytics · Strategy</p>
+    <h1 class="hero-name">Dharani<br><span>Chalapati</span></h1>
+    <p class="hero-title">Finance & Analytics Professional</p>
+    <p class="hero-desc">M.S. Business Analytics candidate at DePaul University (GPA 3.9) with 3+ years of institutional financial services experience — managing P&L reporting, business analytics, and strategic initiatives across global asset management environments.</p>
+    <div class="hero-stats">
+      <div class="stat-item"><div class="stat-num">3+</div><div class="stat-label">Years Experience</div></div>
+      <div class="stat-item"><div class="stat-num">3.9</div><div class="stat-label">GPA</div></div>
+      <div class="stat-item"><div class="stat-num">20+</div><div class="stat-label">Clients Served</div></div>
+      <div class="stat-item"><div class="stat-num">6</div><div class="stat-label">Projects</div></div>
+    </div>
+    <div class="hero-cta">
+      <a href="#projects" class="btn-primary">View Projects</a>
+      <a href="#contact" class="btn-secondary">Get In Touch</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header fade-in">
+    <span class="section-num">01</span>
+    <h2 class="section-title">About Me</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="about-grid">
+    <div class="about-text fade-in">
+      <p>I'm a Finance and Analytics professional with institutional financial services experience and a deep commitment to the kind of precision, judgment, and analytical rigor that high-stakes environments demand. I don't just analyze data — I manage financial processes, synthesize business narratives, and partner with senior leadership to support decisions that move organizations forward.</p>
+      <p>At State Street Corporation, I worked within global asset management operations, producing P&L analyses, business performance summaries, and KPI reporting for 20+ institutional clients including pension plans and sovereign wealth equivalents. That experience gave me a foundational understanding of <strong>how the world's leading financial institutions operate, report, and make decisions at scale</strong>.</p>
+      <p>Now at DePaul, I'm sharpening my quantitative modeling, scenario analysis, and strategic thinking — building on that institutional foundation with the analytical tools and frameworks to support the most demanding finance and strategy teams in the world.</p>
+    </div>
+    <div class="about-details fade-in">
+      <div class="detail-item"><div class="detail-label">Location</div><div class="detail-value">Chicago, IL</div></div>
+      <div class="detail-item"><div class="detail-label">Education</div><div class="detail-value">M.S. Business Analytics — DePaul University (GPA: 3.9)<br>B.Tech Engineering — JNTU India</div></div>
+      <div class="detail-item"><div class="detail-label">Contact</div><div class="detail-value"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f09398919c918091849994b09f85849c9f9f9bde939f9d">[email&#160;protected]</a><br>+1 (312) 483-4238</div></div>
+      <div class="detail-item"><div class="detail-label">Open To</div><div class="detail-value">Finance, FP&A, Asset Management Analytics, Business Reporting — Full-Time</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header fade-in">
+    <span class="section-num">02</span>
+    <h2 class="section-title">Skills</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card fade-in">
+      <div class="skill-card-title">Analytics & Statistical Modeling</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Python</span><span class="skill-tag">R</span><span class="skill-tag">SQL</span><span class="skill-tag">Regression Analysis</span><span class="skill-tag">Time-Series Forecasting</span><span class="skill-tag">A/B Testing</span><span class="skill-tag">Hypothesis Testing</span><span class="skill-tag">Segmentation</span><span class="skill-tag">Predictive Modeling</span><span class="skill-tag">SAS</span>
+      </div>
+    </div>
+    <div class="skill-card fade-in">
+      <div class="skill-card-title">Data Visualization & BI Tools</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Power BI</span><span class="skill-tag">Tableau</span><span class="skill-tag">DAX</span><span class="skill-tag">Excel (Advanced)</span><span class="skill-tag">Alteryx</span><span class="skill-tag">Snowflake</span><span class="skill-tag">Power Query</span><span class="skill-tag">Pivot Tables</span><span class="skill-tag">SharePoint</span>
+      </div>
+    </div>
+    <div class="skill-card fade-in">
+      <div class="skill-card-title">Business Analysis & Strategy</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Requirements Gathering</span><span class="skill-tag">Problem Framing</span><span class="skill-tag">UAT Execution</span><span class="skill-tag">Workflow Design</span><span class="skill-tag">Root Cause Analysis</span><span class="skill-tag">KPI Frameworks</span><span class="skill-tag">Process Optimization</span><span class="skill-tag">Stakeholder Management</span>
+      </div>
+    </div>
+    <div class="skill-card fade-in">
+      <div class="skill-card-title">Finance & Supply Chain</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Financial Modeling</span><span class="skill-tag">FP&A</span><span class="skill-tag">Variance Analysis</span><span class="skill-tag">SAP</span><span class="skill-tag">Oracle</span><span class="skill-tag">Demand Planning</span><span class="skill-tag">Inventory Optimization</span><span class="skill-tag">Network Flow Optimization</span><span class="skill-tag">Scenario Modeling</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-header fade-in">
+    <span class="section-num">03</span>
+    <h2 class="section-title">Experience</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-period">Sep 2025 — Present</div>
+      <div class="timeline-role">Graduate Assistant — Supply Chain & Research Analytics</div>
+      <div class="timeline-company">DePaul University, Chicago, IL</div>
+      <ul class="timeline-bullets">
+        <li>Build predictive models in Python and R supporting demand forecasting, planning, and operational decision-making</li>
+        <li>Design end-to-end analytical workflows with clear dependencies and automation points, improving planning accuracy</li>
+        <li>Develop KPI dashboards in Power BI monitoring performance metrics and communicating insights to senior stakeholders</li>
+        <li>Manage 4+ concurrent projects, documenting methodologies and ensuring traceability across deliverables</li>
+      </ul>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-period">Jun 2025 — Aug 2025</div>
+      <div class="timeline-role">Data Science & Business Analytics Intern</div>
+      <div class="timeline-company">Fusion92, Chicago, IL</div>
+      <ul class="timeline-bullets">
+        <li>Analyzed 3M+ consumer records to identify behavioral patterns, segment customers, and surface go-to-market insights</li>
+        <li>Built end-to-end dashboards (Power BI, Tableau) tracking product performance KPIs, pricing trends, and engagement</li>
+        <li>Automated data workflows and ETL pipelines, reducing reporting effort by 25% and improving data accuracy</li>
+        <li>Partnered with product, marketing, and operations teams to present data-backed recommendations with monitoring plans</li>
+      </ul>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-period">Oct 2022 — Aug 2024</div>
+      <div class="timeline-role">Business Client Service — Senior Associate</div>
+      <div class="timeline-company">State Street Corporation, India</div>
+      <ul class="timeline-bullets">
+        <li>Delivered strategic and operational analysis for 20+ institutional clients in financial services</li>
+        <li>Conducted performance risk analysis connecting historical behavior to forward-looking insights for senior decision-makers</li>
+        <li>Drove a 15% reduction in operational costs through data-driven process redesign and cross-functional execution</li>
+        <li>Streamlined reporting workflows, reducing close-cycle turnaround time by 2 days</li>
+      </ul>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-period">Jun 2021 — Sep 2022</div>
+      <div class="timeline-role">Production Support Analyst</div>
+      <div class="timeline-company">State Street Corporation, India</div>
+      <ul class="timeline-bullets">
+        <li>Resolved 50+ high-severity incidents using structured, data-driven diagnostics and root cause analysis</li>
+        <li>Designed monitoring dashboards reducing repeat incidents by 25% through proactive KPI tracking</li>
+        <li>Improved resolution time by 40% through cross-functional collaboration and structured playbooks</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header fade-in">
+    <span class="section-num">04</span>
+    <h2 class="section-title">Projects</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="projects-grid">
+    <div class="project-card">
+      <div class="project-num">Project 01</div>
+      <div class="project-title">Cost-to-Serve & Margin Optimization Analysis</div>
+      <div class="project-org">DePaul University — Jan 2026</div>
+      <div class="project-desc">Led end-to-end P&L and cost structure analysis using SQL and R, identifying key financial drivers and structural inefficiencies. Built scenario and sensitivity models evaluating strategic trade-offs and produced executive-grade documentation with variance commentary that delivered recommendations improving margins by 12%.</div>
+      <div class="project-tags"><span class="project-tag">P&L Analysis</span><span class="project-tag">SQL</span><span class="project-tag">R</span><span class="project-tag">Scenario Modeling</span><span class="project-tag">Margin Optimization</span></div>
+    </div>
+    <div class="project-card">
+      <div class="project-num">Project 02</div>
+      <div class="project-title">Global Supply Chain Strategy & Financial Modeling</div>
+      <div class="project-org">DePaul University — Jan 2026</div>
+      <div class="project-desc">Built an end-to-end financial model for a global supply chain network, incorporating farm pricing, cold-storage costs, logistics capex, and packaging expenses. Delivered a finance-backed strategic plan with scenario analysis at 5%, 7%, and 10% demand levels — connecting operational decisions to financial outcomes with precision.</div>
+      <div class="project-tags"><span class="project-tag">Financial Modeling</span><span class="project-tag">Scenario Analysis</span><span class="project-tag">Network Optimization</span><span class="project-tag">Strategic Planning</span><span class="project-tag">Capex Modeling</span></div>
+    </div>
+    <div class="project-card">
+      <div class="project-num">Project 03</div>
+      <div class="project-title">Product Performance & Revenue Analytics</div>
+      <div class="project-org">DePaul University — Tesla Case (Sep–Dec 2025)</div>
+      <div class="project-desc">Developed regression models in R to analyze key revenue performance drivers and forecast trends, improving prediction accuracy by 30%. Designed KPI dashboards tracking actuals vs. projections with variance commentary for executive stakeholder reporting.</div>
+      <div class="project-tags"><span class="project-tag">Regression Analysis</span><span class="project-tag">R</span><span class="project-tag">Revenue Forecasting</span><span class="project-tag">KPI Dashboards</span><span class="project-tag">Variance Analysis</span></div>
+    </div>
+    <div class="project-card">
+      <div class="project-num">Project 04</div>
+      <div class="project-title">Product Growth Experimentation & A/B Testing</div>
+      <div class="project-org">DePaul University — Jan 2026</div>
+      <div class="project-desc">Designed controlled A/B experiments evaluating product feature impact on user engagement and retention. Built a behavioral segmentation framework, applied statistical hypothesis testing (t-tests) to validate results, and quantified a ~12% engagement lift with a go-forward monitoring plan for stakeholders.</div>
+      <div class="project-tags"><span class="project-tag">A/B Testing</span><span class="project-tag">Hypothesis Testing</span><span class="project-tag">Behavioral Segmentation</span><span class="project-tag">DAU / Retention</span><span class="project-tag">Python</span></div>
+    </div>
+    <div class="project-card">
+      <div class="project-num">Project 05</div>
+      <div class="project-title">Sales Forecasting & Demand Analysis</div>
+      <div class="project-org">DePaul University — Walmart (Nov–Dec 2024)</div>
+      <div class="project-desc">Built ARIMA and Prophet time-series forecasting models achieving 90%+ accuracy across product categories. Conducted scenario-based analyses for planning under uncertainty and reduced forecast error by 20%, improving operational planning accuracy.</div>
+      <div class="project-tags"><span class="project-tag">ARIMA</span><span class="project-tag">Prophet</span><span class="project-tag">Time-Series</span><span class="project-tag">Demand Planning</span><span class="project-tag">R</span></div>
+    </div>
+    <div class="project-card">
+      <div class="project-num">Project 06</div>
+      <div class="project-title">Supply Chain Demand Forecasting & Inventory Optimization</div>
+      <div class="project-org">DePaul University — Sep 2025</div>
+      <div class="project-desc">Built demand forecasting and inventory optimization frameworks reducing out-of-stock risk and carrying costs. Designed dashboards tracking inventory turn, forecast vs. actuals, and vendor-level constraints enabling proactive replenishment decisions.</div>
+      <div class="project-tags"><span class="project-tag">Inventory Optimization</span><span class="project-tag">Demand Forecasting</span><span class="project-tag">Power BI</span><span class="project-tag">Python</span><span class="project-tag">KPI Tracking</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-header fade-in">
+    <span class="section-num">05</span>
+    <h2 class="section-title">Education</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="edu-grid fade-in">
+    <div class="edu-card">
+      <div class="edu-degree">M.S. in Business Analytics</div>
+      <div class="edu-school">DePaul University, Chicago, IL</div>
+      <div class="edu-meta"><span class="edu-gpa">GPA: 3.9 / 4.0</span><span class="edu-period">Sep 2024 — Present</span></div>
+      <div class="edu-courses">Coursework: Statistical Modeling, Predictive Analytics, Marketing Analytics, Financial Analytics, Supply Chain Analytics, Business Intelligence, Machine Learning, Econometrics, Operations Research, Data Visualization</div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-degree">B.Tech in Electronics & Communication Engineering</div>
+      <div class="edu-school">Jawaharlal Nehru Technological University, India</div>
+      <div class="edu-meta"><span class="edu-gpa">GPA: 3.3 / 4.0</span><span class="edu-period">Jul 2017 — Jul 2021</span></div>
+      <div class="edu-courses">Foundation in quantitative reasoning, signal processing, systems thinking, and engineering problem-solving — building the analytical rigor that underpins all subsequent work.</div>
+    </div>
+  </div>
+</section>
+
+<!-- LEADERSHIP -->
+<section id="leadership">
+  <div class="section-header fade-in">
+    <span class="section-num">06</span>
+    <h2 class="section-title">Leadership</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="leadership-grid fade-in">
+    <div class="leadership-card">
+      <div class="leadership-role">Vice President — Analytics & Insights</div>
+      <div class="leadership-org">DePaul University · Sep 2025 — Present</div>
+      <div class="leadership-desc">Lead analytics and reporting initiatives for a 200+ member student organization. Develop performance dashboards and data-driven business reviews that increased organizational engagement by 25% through targeted insight and execution planning.</div>
+    </div>
+    <div class="leadership-card">
+      <div class="leadership-role">Business Analytics Ambassador</div>
+      <div class="leadership-org">DePaul University · Sep 2025 — Present</div>
+      <div class="leadership-desc">Represent the Business Analytics program through personalized stakeholder outreach, information sessions, and open houses — strengthening program visibility and driving prospective student enrollment and engagement.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="contact-eyebrow">Get In Touch</p>
+  <h2 class="contact-heading">Let's work<br><em>together</em></h2>
+  <p class="contact-sub">Open to full-time opportunities in Finance, FP&A, Asset Management Analytics, and Business Reporting. Based in Chicago, IL.</p>
+  <div class="contact-links">
+    <a href="/cdn-cgi/l/email-protection#d2b1bab3beb3a2b3a6bbb692bda7a6bebdbdb9fcb1bdbf" class="contact-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+      <span class="__cf_email__" data-cfemail="ed8e858c818c9d8c998489ad82989981828286c38e8280">[email&#160;protected]</span>
+    </a>
+    <a href="tel:+13124834238" class="contact-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.05 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16.92z"/></svg>
+      +1 (312) 483-4238
+    </a>
+    <a href="https://linkedin.com/in/Dharani-Chalapati" target="_blank" class="contact-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      linkedin.com/in/Dharani-Chalapati
+    </a>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-text">Dharani Chalapati — Finance & Analytics Portfolio</span>
+  <span class="footer-text">Chicago, IL · 2026</span>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+  document.querySelectorAll('.fade-in, .timeline-item, .project-card').forEach(el => observer.observe(el));
+
+  document.querySelectorAll('.project-card').forEach((card, i) => {
+    card.style.transitionDelay = `${i * 0.08}s`;
+  });
+
+  const sections = document.querySelectorAll('section[id]');
+  const nav
